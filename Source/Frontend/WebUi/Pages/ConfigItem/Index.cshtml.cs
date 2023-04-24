@@ -26,7 +26,7 @@ namespace WebUi.Pages.ConfigItem
             if (_context.ConfigItems != null)
             {
                 ConfigItem = await _context.ConfigItems
-                .Include(c => c.ConfigType).ToListAsync();
+                .Include(c => c.Type).ToListAsync();
             }
         }
     }

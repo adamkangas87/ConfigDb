@@ -12,6 +12,7 @@ namespace Persistance.Configurations
             builder.ToTable("Contacts");
             builder.HasKey(r => r.Id);
             builder.Property(x => x.Name).IsRequired().HasMaxLength(DatabaseConstants.NameColumnLength);
+            builder.HasOne(x=>x.Provider).WithMany().HasForeignKey(x=>x.ProviderId).OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

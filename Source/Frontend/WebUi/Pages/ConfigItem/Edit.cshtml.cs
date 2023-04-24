@@ -36,7 +36,7 @@ namespace WebUi.Pages.ConfigItem
                 return NotFound();
             }
             ConfigItem = configitem;
-           ViewData["ConfigTypeId"] = new SelectList(_context.ConfigTypes, "Id", "Name");
+           ViewData["TypeId"] = new SelectList(_context.ConfigTypes, "Id", "Name");
             return Page();
         }
 

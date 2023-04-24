@@ -12,8 +12,8 @@ namespace Persistance.Configurations
             builder.ToTable("ConfigTypes");
             builder.HasKey(r => r.Id);
             builder.Property(x => x.Name).IsRequired().HasMaxLength(DatabaseConstants.NameColumnLength);
-            builder.HasMany(x=>x.ConfigItems).WithOne(x=>x.ConfigType).HasForeignKey(x=>x.ConfigTypeId).OnDelete(DeleteBehavior.NoAction);
-            builder.HasOne(x => x.Provider).WithMany(x => x.ConfigTypes).HasForeignKey(x => x.ProviderId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasMany(x=>x.Items).WithOne(x=>x.Type).HasForeignKey(x=>x.TypeId).OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(x => x.Provider).WithMany(x => x.Types).HasForeignKey(x => x.ProviderId).OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

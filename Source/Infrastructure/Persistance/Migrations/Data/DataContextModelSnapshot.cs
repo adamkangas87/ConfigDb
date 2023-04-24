@@ -29,9 +29,6 @@ namespace Persistance.Migrations.Data
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ConfigTypeId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
 
@@ -53,9 +50,17 @@ namespace Persistance.Migrations.Data
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
 
+                    b.Property<Guid?>("ServiceItemId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TypeId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ConfigTypeId");
+                    b.HasIndex("ServiceItemId");
+
+                    b.HasIndex("TypeId");
 
                     b.ToTable("ConfigItems", "Data");
                 });
@@ -176,6 +181,9 @@ namespace Persistance.Migrations.Data
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
 
+                    b.Property<Guid>("ServiceItemId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("State")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -223,23 +231,147 @@ namespace Persistance.Migrations.Data
                     b.ToTable("Providers", "Data");
                 });
 
+            modelBuilder.Entity("Domain.Entities.ServiceItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset?>("DateCreated")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset?>("DateModified")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<Guid>("LocationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<Guid>("ProviderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<Guid>("ServiceLevelId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TypeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LocationId")
+                        .IsUnique();
+
+                    b.HasIndex("ProviderId");
+
+                    b.HasIndex("ServiceLevelId");
+
+                    b.HasIndex("TypeId");
+
+                    b.ToTable("ServiceItems", "Data");
+                });
+
+            modelBuilder.Entity("Domain.Entities.ServiceLevel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset?>("DateCreated")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset?>("DateModified")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<double>("Duration")
+                        .HasColumnType("float");
+
+                    b.Property<Guid>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ServiceLevels", "Data");
+                });
+
+            modelBuilder.Entity("Domain.Entities.ServiceType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset?>("DateCreated")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset?>("DateModified")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<Guid>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ServiceTypes", "Data");
+                });
+
             modelBuilder.Entity("Domain.Entities.ConfigItem", b =>
                 {
-                    b.HasOne("Domain.Entities.ConfigType", "ConfigType")
+                    b.HasOne("Domain.Entities.ServiceItem", null)
                         .WithMany("ConfigItems")
-                        .HasForeignKey("ConfigTypeId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .HasForeignKey("ServiceItemId");
+
+                    b.HasOne("Domain.Entities.ConfigType", "Type")
+                        .WithMany("Items")
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("ConfigType");
+                    b.Navigation("Type");
                 });
 
             modelBuilder.Entity("Domain.Entities.ConfigType", b =>
                 {
                     b.HasOne("Domain.Entities.Provider", "Provider")
-                        .WithMany("ConfigTypes")
+                        .WithMany("Types")
                         .HasForeignKey("ProviderId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Provider");
@@ -267,22 +399,77 @@ namespace Persistance.Migrations.Data
                     b.Navigation("Location");
                 });
 
+            modelBuilder.Entity("Domain.Entities.ServiceItem", b =>
+                {
+                    b.HasOne("Domain.Entities.Location", "Location")
+                        .WithOne("ServiceItem")
+                        .HasForeignKey("Domain.Entities.ServiceItem", "LocationId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Provider", "Provider")
+                        .WithMany("Items")
+                        .HasForeignKey("ProviderId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.ServiceLevel", "ServiceLevel")
+                        .WithMany("Items")
+                        .HasForeignKey("ServiceLevelId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.ServiceType", "Type")
+                        .WithMany("Items")
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Location");
+
+                    b.Navigation("Provider");
+
+                    b.Navigation("ServiceLevel");
+
+                    b.Navigation("Type");
+                });
+
             modelBuilder.Entity("Domain.Entities.ConfigType", b =>
                 {
-                    b.Navigation("ConfigItems");
+                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("Domain.Entities.Location", b =>
                 {
                     b.Navigation("Provider")
                         .IsRequired();
+
+                    b.Navigation("ServiceItem")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.Entities.Provider", b =>
                 {
-                    b.Navigation("ConfigTypes");
-
                     b.Navigation("Contacts");
+
+                    b.Navigation("Items");
+
+                    b.Navigation("Types");
+                });
+
+            modelBuilder.Entity("Domain.Entities.ServiceItem", b =>
+                {
+                    b.Navigation("ConfigItems");
+                });
+
+            modelBuilder.Entity("Domain.Entities.ServiceLevel", b =>
+                {
+                    b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("Domain.Entities.ServiceType", b =>
+                {
+                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }

@@ -19,33 +19,8 @@
                 <span asp-validation-for="ConfigItem.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ConfigItem.ConfigTypeId" class="control-label"></label>
-                <select asp-for="ConfigItem.ConfigTypeId" class ="form-control" asp-items="ViewBag.ConfigTypeId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="ConfigItem.DateCreated" class="control-label"></label>
-                <input asp-for="ConfigItem.DateCreated" class="form-control" />
-                <span asp-validation-for="ConfigItem.DateCreated" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ConfigItem.CreatedBy" class="control-label"></label>
-                <input asp-for="ConfigItem.CreatedBy" class="form-control" />
-                <span asp-validation-for="ConfigItem.CreatedBy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ConfigItem.DateModified" class="control-label"></label>
-                <input asp-for="ConfigItem.DateModified" class="form-control" />
-                <span asp-validation-for="ConfigItem.DateModified" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ConfigItem.ModifiedBy" class="control-label"></label>
-                <input asp-for="ConfigItem.ModifiedBy" class="form-control" />
-                <span asp-validation-for="ConfigItem.ModifiedBy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ConfigItem.RowVersion" class="control-label"></label>
-                <input asp-for="ConfigItem.RowVersion" class="form-control" />
-                <span asp-validation-for="ConfigItem.RowVersion" class="text-danger"></span>
+                <label asp-for="ConfigItem.TypeId" class="control-label"></label>
+                <select asp-for="ConfigItem.TypeId" class ="form-control" asp-items="ViewBag.TypeId"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

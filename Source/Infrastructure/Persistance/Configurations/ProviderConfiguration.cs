@@ -12,7 +12,7 @@ namespace Persistance.Configurations
             builder.ToTable("Providers");
             builder.HasKey(r => r.Id);
             builder.Property(x => x.Name).IsRequired().HasMaxLength(DatabaseConstants.NameColumnLength);
-            builder.HasMany(x => x.ConfigTypes).WithOne(x => x.Provider).HasForeignKey(x => x.ProviderId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasMany(x => x.Types).WithOne(x => x.Provider).HasForeignKey(x => x.ProviderId).OnDelete(DeleteBehavior.Restrict);
             builder.HasMany(x => x.Contacts).WithOne(x => x.Provider).HasForeignKey(x => x.ProviderId).OnDelete(DeleteBehavior.Cascade);
             builder.HasOne(x=>x.Location).WithOne(x=>x.Provider).HasForeignKey<Provider>(x=>x.LocationId).OnDelete(DeleteBehavior.Cascade);
         }

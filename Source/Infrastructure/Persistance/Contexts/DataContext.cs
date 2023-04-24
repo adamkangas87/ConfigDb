@@ -17,11 +17,9 @@ namespace Persistance.Contexts
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<Provider> Providers { get; set; }
-        //public DbSet<ServiceItem> ServiceItems { get; set; }
-        //public DbSet<ServiceLevel> ServiceLevels { get; set; }
-        //public DbSet<ServiceType> ServiceTypes { get; set; }
-        //public DbSet<Skill> Skills { get; set; }
-        //public DbSet<Support> Supports { get; set; }
+        public DbSet<ServiceItem> ServiceItems { get; set; }
+        public DbSet<ServiceLevel> ServiceLevels { get; set; }
+        public DbSet<ServiceType> ServiceTypes { get; set; }
 
 
 
@@ -33,11 +31,9 @@ namespace Persistance.Contexts
             modelBuilder.ApplyConfiguration(new ContactConfiguration());
             modelBuilder.ApplyConfiguration(new LocationConfiguration());
             modelBuilder.ApplyConfiguration(new ProviderConfiguration());
-            //modelBuilder.ApplyConfiguration(new ServiceItemConfiguration());
-            //modelBuilder.ApplyConfiguration(new ServiceLevelConfiguration());
-            //modelBuilder.ApplyConfiguration(new ServiceTypeConfiguration());
-            //modelBuilder.ApplyConfiguration(new SkillConfiguration());
-            //modelBuilder.ApplyConfiguration(new SupportConfiguration());
+            modelBuilder.ApplyConfiguration(new ServiceItemConfiguration());
+            modelBuilder.ApplyConfiguration(new ServiceLevelConfiguration());
+            modelBuilder.ApplyConfiguration(new ServiceTypeConfiguration());
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

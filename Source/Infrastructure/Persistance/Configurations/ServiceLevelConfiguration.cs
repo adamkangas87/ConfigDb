@@ -12,6 +12,7 @@ namespace Persistance.Configurations
             builder.ToTable("ServiceLevels");
             builder.HasKey(r => r.Id);
             builder.Property(x => x.Name).IsRequired().HasMaxLength(DatabaseConstants.NameColumnLength);
+            builder.HasMany(x => x.Items).WithOne(x => x.ServiceLevel).HasForeignKey(x => x.ServiceLevelId).OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Persistance.Extensions
     {
         public static IServiceCollection AddPersistanceServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<DataContext>(options => options.UseSqlServer(configuration.GetConnectionString(nameof(DataContext)), x => x.MigrationsHistoryTable("Migrations", "Configuration")));
+            services.AddDbContext<DataContext>(options => options.UseSqlServer(configuration.GetConnectionString(nameof(DataContext)), x => x.MigrationsHistoryTable("Migrations", "Configuration")).UseLazyLoadingProxies());
 
             services.AddScoped<DataContextSeed>();
             services.AddScoped<IMigrationService, MigrationService>();
