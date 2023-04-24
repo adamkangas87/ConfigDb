@@ -11,7 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrontEnd", "FrontEnd", "{4D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{6B3BB0F8-66AF-4042-8791-FA8E6A566256}"
 	ProjectSection(SolutionItems) = preProject
-		SolutionItems\README.md = SolutionItems\README.md
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{866EADAF-AB4B-4D7E-A7A4-EFEDCB3C7BA1}"
