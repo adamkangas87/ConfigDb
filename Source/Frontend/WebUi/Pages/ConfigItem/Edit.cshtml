@@ -1,0 +1,65 @@
+﻿@page
+@model WebUi.Pages.ConfigItem.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>ConfigItem</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ConfigItem.Name" class="control-label"></label>
+                <input asp-for="ConfigItem.Name" class="form-control" />
+                <span asp-validation-for="ConfigItem.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfigItem.ConfigTypeId" class="control-label"></label>
+                <select asp-for="ConfigItem.ConfigTypeId" class="form-control" asp-items="ViewBag.ConfigTypeId"></select>
+                <span asp-validation-for="ConfigItem.ConfigTypeId" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="ConfigItem.Id" />
+            <div class="form-group">
+                <label asp-for="ConfigItem.DateCreated" class="control-label"></label>
+                <input asp-for="ConfigItem.DateCreated" class="form-control" />
+                <span asp-validation-for="ConfigItem.DateCreated" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfigItem.CreatedBy" class="control-label"></label>
+                <input asp-for="ConfigItem.CreatedBy" class="form-control" />
+                <span asp-validation-for="ConfigItem.CreatedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfigItem.DateModified" class="control-label"></label>
+                <input asp-for="ConfigItem.DateModified" class="form-control" />
+                <span asp-validation-for="ConfigItem.DateModified" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfigItem.ModifiedBy" class="control-label"></label>
+                <input asp-for="ConfigItem.ModifiedBy" class="form-control" />
+                <span asp-validation-for="ConfigItem.ModifiedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfigItem.RowVersion" class="control-label"></label>
+                <input asp-for="ConfigItem.RowVersion" class="form-control" />
+                <span asp-validation-for="ConfigItem.RowVersion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
