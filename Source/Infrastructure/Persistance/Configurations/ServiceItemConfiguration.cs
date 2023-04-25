@@ -6,9 +6,9 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace Persistance.Configurations
 {
-    public class ServiceItemConfiguration : IEntityTypeConfiguration<ServiceItem>
+    public class ServiceItemConfiguration : AuditableConfiguration<ServiceItem>
     {
-        public void Configure(EntityTypeBuilder<ServiceItem> builder)
+        public override void Configure(EntityTypeBuilder<ServiceItem> builder)
         {
             builder.ToTable("ServiceItems");
             builder.HasKey(r => r.Id);
@@ -17,6 +17,7 @@ namespace Persistance.Configurations
             builder.HasOne(x => x.Provider).WithMany(x => x.Items).HasForeignKey(x => x.ProviderId).OnDelete(DeleteBehavior.NoAction);
             builder.HasOne(x => x.Location).WithOne(x => x.ServiceItem).HasForeignKey<ServiceItem>(x => x.LocationId).OnDelete(DeleteBehavior.NoAction);
             builder.HasOne(x => x.ServiceLevel).WithMany(x => x.Items).HasForeignKey(x => x.ServiceLevelId).OnDelete(DeleteBehavior.NoAction);
+            ConfigureAudtiable(builder);
         }
     }
 }

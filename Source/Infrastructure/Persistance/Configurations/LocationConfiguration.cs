@@ -5,13 +5,14 @@ using Persistance.Constants;
 
 namespace Persistance.Configurations
 {
-    public class LocationConfiguration : IEntityTypeConfiguration<Location>
+    public class LocationConfiguration : AuditableConfiguration<Location>
     {
-        public void Configure(EntityTypeBuilder<Location> builder)
+        public override void Configure(EntityTypeBuilder<Location> builder)
         {
             builder.ToTable("Locations");
             builder.HasKey(r => r.Id);
             builder.Property(x => x.Name).IsRequired().HasMaxLength(DatabaseConstants.NameColumnLength);
+            ConfigureAudtiable(builder);
         }
     }
 }

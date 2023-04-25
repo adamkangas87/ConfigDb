@@ -5,9 +5,9 @@ using Persistance.Constants;
 
 namespace Persistance.Configurations
 {
-    public class ProviderConfiguration : IEntityTypeConfiguration<Provider>
+    public class ProviderConfiguration : AuditableConfiguration<Provider>
     {
-        public void Configure(EntityTypeBuilder<Provider> builder)
+        public override void Configure(EntityTypeBuilder<Provider> builder)
         {
             builder.ToTable("Providers");
             builder.HasKey(r => r.Id);
@@ -15,6 +15,7 @@ namespace Persistance.Configurations
             builder.HasMany(x => x.Types).WithOne(x => x.Provider).HasForeignKey(x => x.ProviderId).OnDelete(DeleteBehavior.Restrict);
             builder.HasMany(x => x.Contacts).WithOne(x => x.Provider).HasForeignKey(x => x.ProviderId).OnDelete(DeleteBehavior.Cascade);
             builder.HasOne(x=>x.Location).WithOne(x=>x.Provider).HasForeignKey<Provider>(x=>x.LocationId).OnDelete(DeleteBehavior.Cascade);
+            ConfigureAudtiable(builder);
         }
     }
 }

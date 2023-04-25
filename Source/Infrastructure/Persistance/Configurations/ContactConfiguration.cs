@@ -5,14 +5,15 @@ using Persistance.Constants;
 
 namespace Persistance.Configurations
 {
-    public class ContactConfiguration : IEntityTypeConfiguration<Contact>
+    public class ContactConfiguration : AuditableConfiguration<Contact>
     {
-        public void Configure(EntityTypeBuilder<Contact> builder)
+        public override void Configure(EntityTypeBuilder<Contact> builder)
         {
             builder.ToTable("Contacts");
             builder.HasKey(r => r.Id);
             builder.Property(x => x.Name).IsRequired().HasMaxLength(DatabaseConstants.NameColumnLength);
             builder.HasOne(x=>x.Provider).WithMany().HasForeignKey(x=>x.ProviderId).OnDelete(DeleteBehavior.NoAction);
+            ConfigureAudtiable(builder);
         }
     }
 }

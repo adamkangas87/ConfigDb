@@ -34,6 +34,7 @@ namespace Persistance.Contexts
             modelBuilder.ApplyConfiguration(new ServiceItemConfiguration());
             modelBuilder.ApplyConfiguration(new ServiceLevelConfiguration());
             modelBuilder.ApplyConfiguration(new ServiceTypeConfiguration());
+            base.OnModelCreating(modelBuilder);
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
