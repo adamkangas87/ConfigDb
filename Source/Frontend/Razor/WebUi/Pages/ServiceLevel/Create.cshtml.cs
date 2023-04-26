@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Domain.Entities;
 using Persistance.Contexts;
+using Application.Features.ServiceLevel.Models;
 
 namespace WebUi.Pages.ServiceLevel
 {
@@ -25,7 +26,7 @@ namespace WebUi.Pages.ServiceLevel
         }
 
         [BindProperty]
-        public Domain.Entities.ServiceLevel ServiceLevel { get; set; } = default!;
+        public CreateServiceLevelModel ServiceLevel { get; set; } = default!;
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
@@ -36,7 +37,7 @@ namespace WebUi.Pages.ServiceLevel
                 return Page();
             }
 
-            _context.ServiceLevels.Add(ServiceLevel);
+            _context.ServiceLevels.Add(new Domain.Entities.ServiceLevel { Name = ServiceLevel.Name, Duration = ServiceLevel.Duration});
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

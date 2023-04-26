@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Domain.Entities;
 using Persistance.Contexts;
+using Application.Features.ConfigType.Models;
 
 namespace WebUi.Pages.ConfigType
 {
     public class CreateModel : PageModel
     {
-        private readonly Persistance.Contexts.DataContext _context;
+        private readonly DataContext _context;
 
-        public CreateModel(Persistance.Contexts.DataContext context)
+        public CreateModel(DataContext context)
         {
             _context = context;
         }
@@ -26,7 +22,7 @@ namespace WebUi.Pages.ConfigType
         }
 
         [BindProperty]
-        public Domain.Entities.ConfigType ConfigType { get; set; } = default!;
+        public CreateConfigTypeModel ConfigType { get; set; } = default!;
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
@@ -37,7 +33,7 @@ namespace WebUi.Pages.ConfigType
                 return Page();
             }
 
-            _context.ConfigTypes.Add(ConfigType);
+            _context.ConfigTypes.Add(new Domain.Entities.ConfigType { Name = ConfigType.Name, ProviderId = ConfigType.ProviderId });
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

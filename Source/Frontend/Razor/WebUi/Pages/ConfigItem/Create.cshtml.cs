@@ -7,14 +7,15 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Domain.Entities;
 using Persistance.Contexts;
+using Application.Features.ConfigItem.Models;
 
 namespace WebUi.Pages.ConfigItem
 {
     public class CreateModel : PageModel
     {
-        private readonly Persistance.Contexts.DataContext _context;
+        private readonly DataContext _context;
 
-        public CreateModel(Persistance.Contexts.DataContext context)
+        public CreateModel(DataContext context)
         {
             _context = context;
         }
@@ -26,7 +27,7 @@ namespace WebUi.Pages.ConfigItem
         }
 
         [BindProperty]
-        public Domain.Entities.ConfigItem ConfigItem { get; set; } = default!;
+        public CreateConfigItemModel ConfigItem { get; set; } = default!;
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
@@ -37,7 +38,7 @@ namespace WebUi.Pages.ConfigItem
                 return Page();
             }
 
-            _context.ConfigItems.Add(ConfigItem);
+            _context.ConfigItems.Add(new Domain.Entities.ConfigItem { Name = ConfigItem.Name, TypeId = ConfigItem.TypeId});
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

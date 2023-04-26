@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Domain.Entities;
-using Persistance.Contexts;
 
 namespace WebUi.Pages.Provider
 {
@@ -25,8 +18,7 @@ namespace WebUi.Pages.Provider
         {
             if (_context.Providers != null)
             {
-                Provider = await _context.Providers
-                .Include(p => p.Location).ToListAsync();
+                Provider = await _context.Providers.ToListAsync();
             }
         }
     }

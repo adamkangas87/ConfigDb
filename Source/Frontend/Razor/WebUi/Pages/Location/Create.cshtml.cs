@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Persistance.Contexts;
-using Application.Features.Contact.Models;
+using Application.Features.Location.Models;
 
 namespace WebUi.Pages.Location
 {

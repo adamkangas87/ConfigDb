@@ -14,7 +14,7 @@ namespace Persistance.Configurations
             builder.Property(x => x.Name).IsRequired().HasMaxLength(DatabaseConstants.NameColumnLength);
             builder.HasMany(x => x.Types).WithOne(x => x.Provider).HasForeignKey(x => x.ProviderId).OnDelete(DeleteBehavior.Restrict);
             builder.HasMany(x => x.Contacts).WithOne(x => x.Provider).HasForeignKey(x => x.ProviderId).OnDelete(DeleteBehavior.Cascade);
-            builder.HasOne(x=>x.Location).WithOne(x=>x.Provider).HasForeignKey<Provider>(x=>x.LocationId).OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(x=>x.Locations).WithOne(x=>x.Provider).HasForeignKey(x=>x.ProviderId).OnDelete(DeleteBehavior.Cascade);
             ConfigureAudtiable(builder);
         }
     }

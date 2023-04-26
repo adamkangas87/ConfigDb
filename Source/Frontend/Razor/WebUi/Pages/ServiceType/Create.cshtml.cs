@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Domain.Entities;
 using Persistance.Contexts;
+using Application.Features.ServiceType.Models;
 
 namespace WebUi.Pages.ServiceType
 {
     public class CreateModel : PageModel
     {
-        private readonly Persistance.Contexts.DataContext _context;
+        private readonly DataContext _context;
 
-        public CreateModel(Persistance.Contexts.DataContext context)
+        public CreateModel(DataContext context)
         {
             _context = context;
         }
@@ -25,7 +20,7 @@ namespace WebUi.Pages.ServiceType
         }
 
         [BindProperty]
-        public Domain.Entities.ServiceType ServiceType { get; set; } = default!;
+        public CreateServiceTypeModel ServiceType { get; set; } = default!;
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
@@ -36,7 +31,7 @@ namespace WebUi.Pages.ServiceType
                 return Page();
             }
 
-            _context.ServiceTypes.Add(ServiceType);
+            _context.ServiceTypes.Add(new Domain.Entities.ServiceType { Name = ServiceType.Name});
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
